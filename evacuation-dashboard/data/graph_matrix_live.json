@@ -1,0 +1,820 @@
+{
+  "mode": "live",
+  "updated_at": 1787726045.925395,
+  "node_count": 19,
+  "nodes": [
+    {
+      "id": "sim1",
+      "node_id": "sim1",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -138,
+        "y": -224
+      }
+    },
+    {
+      "id": "sim8",
+      "node_id": "sim8",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -241,
+        "y": 227
+      }
+    },
+    {
+      "id": "sim10",
+      "node_id": "sim10",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 120,
+        "y": 267
+      }
+    },
+    {
+      "id": "node4",
+      "node_id": "node4",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 36,
+        "y": -113
+      }
+    },
+    {
+      "id": "sim2",
+      "node_id": "sim2",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 308,
+        "y": -243
+      }
+    },
+    {
+      "id": "sim9",
+      "node_id": "sim9",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 377,
+        "y": 174
+      }
+    },
+    {
+      "id": "sim11",
+      "node_id": "sim11",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -74,
+        "y": 349
+      }
+    },
+    {
+      "id": "sim7",
+      "node_id": "sim7",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 454,
+        "y": 58
+      }
+    },
+    {
+      "id": "sim6",
+      "node_id": "sim6",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -133,
+        "y": 66
+      }
+    },
+    {
+      "id": "sim5",
+      "node_id": "sim5",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 386,
+        "y": -64
+      }
+    },
+    {
+      "id": "sim3",
+      "node_id": "sim3",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -252,
+        "y": -94
+      }
+    },
+    {
+      "id": "EXIT-1",
+      "node_id": "EXIT-1",
+      "node_type": "exit",
+      "position_2d": {
+        "x": -122,
+        "y": -324
+      }
+    },
+    {
+      "id": "EXIT-2",
+      "node_id": "EXIT-2",
+      "node_type": "exit",
+      "position_2d": {
+        "x": 624,
+        "y": -77
+      }
+    },
+    {
+      "id": "EXIT-3",
+      "node_id": "EXIT-3",
+      "node_type": "exit",
+      "position_2d": {
+        "x": 126,
+        "y": 518
+      }
+    },
+    {
+      "id": "JUNC-1",
+      "node_id": "JUNC-1",
+      "node_type": "junction",
+      "position_2d": {
+        "x": 171,
+        "y": 53
+      }
+    },
+    {
+      "id": "JUNC-2",
+      "node_id": "JUNC-2",
+      "node_type": "junction",
+      "position_2d": {
+        "x": -126,
+        "y": -136
+      }
+    },
+    {
+      "id": "JUNC-3",
+      "node_id": "JUNC-3",
+      "node_type": "junction",
+      "position_2d": {
+        "x": -266,
+        "y": 78
+      }
+    },
+    {
+      "id": "JUNC-4",
+      "node_id": "JUNC-4",
+      "node_type": "junction",
+      "position_2d": {
+        "x": 95,
+        "y": 397
+      }
+    },
+    {
+      "id": "JUNC-5",
+      "node_id": "JUNC-5",
+      "node_type": "junction",
+      "position_2d": {
+        "x": 506,
+        "y": -36
+      }
+    }
+  ],
+  "node_positions": {
+    "sim1": {
+      "x": -138,
+      "y": -224
+    },
+    "sim8": {
+      "x": -241,
+      "y": 227
+    },
+    "sim10": {
+      "x": 120,
+      "y": 267
+    },
+    "node4": {
+      "x": 36,
+      "y": -113
+    },
+    "sim2": {
+      "x": 308,
+      "y": -243
+    },
+    "sim9": {
+      "x": 377,
+      "y": 174
+    },
+    "sim11": {
+      "x": -74,
+      "y": 349
+    },
+    "sim7": {
+      "x": 454,
+      "y": 58
+    },
+    "sim6": {
+      "x": -133,
+      "y": 66
+    },
+    "sim5": {
+      "x": 386,
+      "y": -64
+    },
+    "sim3": {
+      "x": -252,
+      "y": -94
+    },
+    "EXIT-1": {
+      "x": -122,
+      "y": -324
+    },
+    "EXIT-2": {
+      "x": 624,
+      "y": -77
+    },
+    "EXIT-3": {
+      "x": 126,
+      "y": 518
+    },
+    "JUNC-1": {
+      "x": 171,
+      "y": 53
+    },
+    "JUNC-2": {
+      "x": -126,
+      "y": -136
+    },
+    "JUNC-3": {
+      "x": -266,
+      "y": 78
+    },
+    "JUNC-4": {
+      "x": 95,
+      "y": 397
+    },
+    "JUNC-5": {
+      "x": 506,
+      "y": -36
+    }
+  },
+  "edges": [
+    {
+      "from": "node4",
+      "to": "JUNC-1",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 214.0,
+      "distance": 214.0
+    },
+    {
+      "from": "sim6",
+      "to": "JUNC-1",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 304.0,
+      "distance": 304.0
+    },
+    {
+      "from": "sim10",
+      "to": "JUNC-1",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 220.0,
+      "distance": 220.0
+    },
+    {
+      "from": "JUNC-1",
+      "to": "sim9",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 239.0,
+      "distance": 239.0
+    },
+    {
+      "from": "JUNC-1",
+      "to": "sim5",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 245.0,
+      "distance": 245.0
+    },
+    {
+      "from": "JUNC-1",
+      "to": "sim2",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 326.0,
+      "distance": 326.0
+    },
+    {
+      "from": "sim3",
+      "to": "JUNC-2",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 133.0,
+      "distance": 133.0
+    },
+    {
+      "from": "JUNC-2",
+      "to": "sim1",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 89.0,
+      "distance": 89.0
+    },
+    {
+      "from": "JUNC-2",
+      "to": "node4",
+      "from_display": "Front",
+      "to_display": "Back",
+      "base_distance": 164.0,
+      "distance": 164.0
+    },
+    {
+      "from": "sim3",
+      "to": "JUNC-3",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 173.0,
+      "distance": 173.0
+    },
+    {
+      "from": "JUNC-3",
+      "to": "sim6",
+      "from_display": "Front",
+      "to_display": "Back",
+      "base_distance": 134.0,
+      "distance": 134.0
+    },
+    {
+      "from": "JUNC-3",
+      "to": "sim8",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 151.0,
+      "distance": 151.0
+    },
+    {
+      "from": "sim8",
+      "to": "sim11",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 207.0,
+      "distance": 207.0
+    },
+    {
+      "from": "sim11",
+      "to": "JUNC-4",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 176.0,
+      "distance": 176.0
+    },
+    {
+      "from": "JUNC-4",
+      "to": "sim10",
+      "from_display": "Front",
+      "to_display": "Back",
+      "base_distance": 132.0,
+      "distance": 132.0
+    },
+    {
+      "from": "EXIT-1",
+      "to": "sim1",
+      "from_display": "Front",
+      "to_display": "Back",
+      "base_distance": 101.0,
+      "distance": 101.0
+    },
+    {
+      "from": "sim5",
+      "to": "JUNC-5",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 123.0,
+      "distance": 123.0
+    },
+    {
+      "from": "JUNC-5",
+      "to": "sim7",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 107.0,
+      "distance": 107.0
+    },
+    {
+      "from": "JUNC-5",
+      "to": "EXIT-2",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 125.0,
+      "distance": 125.0
+    },
+    {
+      "from": "JUNC-4",
+      "to": "EXIT-3",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 125.0,
+      "distance": 125.0
+    }
+  ],
+  "matrix": [
+    [
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      101.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      89.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      207.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      151.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      220.0,
+      -1.0,
+      -1.0,
+      132.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      214.0,
+      164.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      326.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      239.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      207.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      176.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      107.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      304.0,
+      -1.0,
+      134.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      245.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      123.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      133.0,
+      173.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      101.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      125.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      125.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      220.0,
+      214.0,
+      326.0,
+      239.0,
+      -1.0,
+      -1.0,
+      304.0,
+      245.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      89.0,
+      -1.0,
+      -1.0,
+      164.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      133.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      151.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      134.0,
+      -1.0,
+      173.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      132.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      176.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      125.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      107.0,
+      -1.0,
+      123.0,
+      -1.0,
+      -1.0,
+      125.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0
+    ]
+  ],
+  "main_entrance_id": "EXIT-1"
+}

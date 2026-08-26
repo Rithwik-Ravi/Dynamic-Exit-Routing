@@ -1,0 +1,294 @@
+{
+  "mode": "test",
+  "updated_at": 1787713304.6210752,
+  "node_count": 9,
+  "nodes": [
+    {
+      "id": "NODE-1",
+      "node_id": "NODE-1",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -276,
+        "y": 56
+      }
+    },
+    {
+      "id": "NODE-2",
+      "node_id": "NODE-2",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": -61,
+        "y": 46
+      }
+    },
+    {
+      "id": "NODE-3",
+      "node_id": "NODE-3",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 324,
+        "y": 61
+      }
+    },
+    {
+      "id": "NODE-4",
+      "node_id": "NODE-4",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 111,
+        "y": -101
+      }
+    },
+    {
+      "id": "NODE-5",
+      "node_id": "NODE-5",
+      "node_type": "sensor",
+      "position_2d": {
+        "x": 131,
+        "y": 242
+      }
+    },
+    {
+      "id": "EXIT-1",
+      "node_id": "EXIT-1",
+      "node_type": "exit",
+      "position_2d": {
+        "x": -508,
+        "y": 43
+      }
+    },
+    {
+      "id": "EXIT-2",
+      "node_id": "EXIT-2",
+      "node_type": "exit",
+      "position_2d": {
+        "x": 542,
+        "y": 67
+      }
+    },
+    {
+      "id": "EXIT-3",
+      "node_id": "EXIT-3",
+      "node_type": "exit",
+      "position_2d": {
+        "x": 83,
+        "y": -301
+      }
+    },
+    {
+      "id": "JUNC-1",
+      "node_id": "JUNC-1",
+      "node_type": "junction",
+      "position_2d": {
+        "x": 134,
+        "y": 58
+      }
+    }
+  ],
+  "node_positions": {
+    "NODE-1": {
+      "x": -276,
+      "y": 56
+    },
+    "NODE-2": {
+      "x": -61,
+      "y": 46
+    },
+    "NODE-3": {
+      "x": 324,
+      "y": 61
+    },
+    "NODE-4": {
+      "x": 111,
+      "y": -101
+    },
+    "NODE-5": {
+      "x": 131,
+      "y": 242
+    },
+    "EXIT-1": {
+      "x": -508,
+      "y": 43
+    },
+    "EXIT-2": {
+      "x": 542,
+      "y": 67
+    },
+    "EXIT-3": {
+      "x": 83,
+      "y": -301
+    },
+    "JUNC-1": {
+      "x": 134,
+      "y": 58
+    }
+  },
+  "edges": [
+    {
+      "from": "EXIT-1",
+      "to": "NODE-1",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 232.0,
+      "distance": 232.0
+    },
+    {
+      "from": "NODE-1",
+      "to": "NODE-2",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 215.0,
+      "distance": 215.0
+    },
+    {
+      "from": "NODE-2",
+      "to": "JUNC-1",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 195.0,
+      "distance": 195.0
+    },
+    {
+      "from": "JUNC-1",
+      "to": "NODE-3",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 190.0,
+      "distance": 190.0
+    },
+    {
+      "from": "JUNC-1",
+      "to": "NODE-4",
+      "from_display": "Front",
+      "to_display": "Front",
+      "base_distance": 161.0,
+      "distance": 161.0
+    },
+    {
+      "from": "NODE-4",
+      "to": "EXIT-3",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 202.0,
+      "distance": 202.0
+    },
+    {
+      "from": "NODE-5",
+      "to": "JUNC-1",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 184.0,
+      "distance": 184.0
+    },
+    {
+      "from": "NODE-3",
+      "to": "EXIT-2",
+      "from_display": "Back",
+      "to_display": "Front",
+      "base_distance": 218.0,
+      "distance": 218.0
+    }
+  ],
+  "matrix": [
+    [
+      0.0,
+      215.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      232.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      215.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      195.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      218.0,
+      -1.0,
+      190.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      202.0,
+      161.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      184.0
+    ],
+    [
+      232.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      218.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      -1.0,
+      -1.0,
+      202.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      195.0,
+      190.0,
+      161.0,
+      184.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0
+    ]
+  ],
+  "main_entrance_id": "EXIT-1"
+}

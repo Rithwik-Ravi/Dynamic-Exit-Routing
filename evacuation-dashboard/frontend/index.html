@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Exit Router // Disaster Management & Sign Node Graph</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="theme-dark">
+
+  <!-- TOP HUD HEADER -->
+  <header class="hud-header">
+    <div class="header-left">
+      <div class="brand-badge">
+        <i class="fa-solid fa-shield-halved brand-icon"></i>
+        <div class="brand-text">
+          <span class="brand-name">DYNAMIC <span class="accent-text">EXIT ROUTER</span></span>
+          <span class="brand-sub">Real-Time Evacuation Guidance & Telemetry</span>
+        </div>
+      </div>
+      <div class="system-status-pill safe" id="system-threat-badge">
+        <span class="status-indicator"></span>
+        <span class="status-label" id="system-status-text">STATUS: NORMAL</span>
+      </div>
+    </div>
+
+    <!-- Center Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab-btn active" id="tab-btn-monitor" onclick="switchMainTab('monitor')">
+        <i class="fa-solid fa-gauge-high"></i>
+        <span>Live Monitoring</span>
+      </button>
+      <button class="nav-tab-btn" id="tab-btn-editor" onclick="switchMainTab('editor')">
+        <i class="fa-solid fa-diagram-project"></i>
+        <span>Layout & Graph Editor</span>
+      </button>
+    </div>
+
+    <!-- Header Right Controls -->
+    <div class="header-right">
+      <!-- Mode Selector: Live Hardware vs Testing Mode -->
+      <div class="mode-toggle-container">
+        <span class="mode-label"><i class="fa-solid fa-database"></i> SOURCE:</span>
+        <div class="toggle-pill-group">
+          <button class="toggle-pill active" id="btn-mode-live" onclick="setMode('live')">
+            <i class="fa-solid fa-microchip"></i> LIVE
+          </button>
+          <button class="toggle-pill" id="btn-mode-test" onclick="setMode('test')">
+            <i class="fa-solid fa-vial"></i> TEST DICT
+          </button>
+        </div>
+      </div>
+
+      <div class="connection-status">
+        <span class="pulse-dot" id="conn-dot"></span>
+        <span class="conn-text" id="conn-text">API: 500ms</span>
+      </div>
+      <div class="live-clock" id="live-clock">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       TAB 1: LIVE MONITORING VIEW
+       ========================================================================= -->
+  <div class="tab-view active" id="view-monitoring">
+    
+    <!-- OVERALL STATISTICS KPI BANNER -->
+    <section class="kpi-banner">
+      <div class="kpi-card" id="kpi-nodes">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-network-wired"></i></div>
+        <div class="kpi-data">
+          <div class="kpi-value"><span id="kpi-online-count">0</span></div>
+          <div class="kpi-title">Active Nodes</div>
+        </div>
+        <div class="kpi-meta" id="kpi-mode-label">Live dict</div>
+      </div>
+
+      <div class="kpi-card" id="kpi-hazards">
+        <div class="kpi-icon-wrap danger"><i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="kpi-data">
+          <div class="kpi-value danger-text" id="kpi-hazard-count">0</div>
+          <div class="kpi-title">Fire / Critical Nodes</div>
+        </div>
+        <div class="kpi-meta" id="kpi-hazard-sub">All clear</div>
+      </div>
+
+      <div class="kpi-card" id="kpi-blocked">
+        <div class="kpi-icon-wrap warning"><i class="fa-solid fa-ban"></i></div>
+        <div class="kpi-data">
+          <div class="kpi-value warning-text" id="kpi-blocked-count">0</div>
+          <div class="kpi-title">Blocked Passages</div>
+        </div>
+        <div class="kpi-meta">STOP Diversions</div>
+      </div>
+
+      <div class="kpi-card" id="kpi-occupancy">
+        <div class="kpi-icon-wrap purple"><i class="fa-solid fa-users-viewfinder"></i></div>
+        <div class="kpi-data">
+          <div class="kpi-value purple-text" id="kpi-people-count">0</div>
+          <div class="kpi-title">Total Occupants</div>
+        </div>
+        <div class="kpi-meta">Camera AI Vision</div>
+      </div>
+
+      <div class="kpi-card" id="kpi-signs">
+        <div class="kpi-icon-wrap cyan"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
+        <div class="kpi-data">
+          <div class="kpi-value cyan-text"><span id="kpi-forward-signs">0</span> <small>FORWARD</small> / <span id="kpi-stop-signs">0</span> <small>STOP</small></div>
+          <div class="kpi-title">Dynamic Signs (A & B)</div>
+        </div>
+        <div class="kpi-meta">Direction Signs</div>
+      </div>
+    </section>
+
+    <!-- MONITORING VIEWPORT -->
+    <main class="main-viewport">
+      <div class="graph-viewport-panel" id="graph-panel">
+        <div class="map-toolbar">
+          <div class="toolbar-left">
+            <span class="toolbar-title"><i class="fa-solid fa-diagram-project"></i> 2D NODE GRAPH (TOP VIEW)</span>
+            <span class="toolbar-mode-tag" id="graph-mode-tag"><i class="fa-solid fa-circle-dot"></i> SOURCE: LIVE HARDWARE (nodes dict)</span>
+          </div>
+          <div class="toolbar-right">
+            <button class="btn-tool" id="btn-reload-graph" onclick="reloadMonitoringScene()"><i class="fa-solid fa-arrows-rotate"></i> Reload Scene</button>
+            <button class="btn-tool" onclick="reset2DGraphZoom()"><i class="fa-solid fa-magnifying-glass-arrows-rotate"></i> Reset View</button>
+          </div>
+        </div>
+
+        <div class="graph-canvas-container" id="graph-container">
+          <canvas id="graph2d-canvas"></canvas>
+
+          <div class="empty-state-overlay" id="empty-state" style="display: none;">
+            <i class="fa-solid fa-satellite-dish"></i>
+            <h3>Waiting for Live Hardware Nodes on /state</h3>
+            <p>Send a POST request to <code>/node/&lt;node_id&gt;/report</code> or toggle <strong>TEST DICT</strong> in the header.</p>
+          </div>
+
+          <div class="floating-graph-legend">
+            <div class="legend-chip"><span class="chip-dot green"></span> Safe / Clear</div>
+            <div class="legend-chip"><span class="chip-dot yellow"></span> Congestion</div>
+            <div class="legend-chip"><span class="chip-dot orange"></span> Warning</div>
+            <div class="legend-chip"><span class="chip-dot red blink"></span> Blocked / Critical Fire</div>
+          </div>
+
+          <div class="floating-hint">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Click on any node to view real-time camera telemetry, dual matrix displays & sensors. Drag to pan, scroll to zoom.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR: NODE TELEMETRY INSPECTOR -->
+      <aside class="node-inspector-drawer" id="node-inspector">
+        <div class="drawer-header">
+          <div class="drawer-title-group">
+            <div class="node-badge-id" id="drawer-node-id">NODE-1</div>
+            <div class="node-badge-loc" id="drawer-node-location">Location</div>
+          </div>
+          <button class="btn-close-drawer" onclick="closeInspector()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="drawer-content scrollable">
+          <div class="node-status-bar" id="drawer-status-bar">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="drawer-status-text">NODE HEALTHY // PASSAGE CLEAR</span>
+          </div>
+
+          <!-- Dijkstra Active Route Summary Card -->
+          <div class="route-summary-card" id="drawer-route-card">
+            <div class="route-summary-header">
+              <span><i class="fa-solid fa-route"></i> EVACUATION ROUTE</span>
+              <span class="status-tag" id="drawer-route-exit">EXIT-1</span>
+            </div>
+            <div class="route-summary-details">
+              <span>Next Hop: <b id="drawer-route-nexthop">EXIT-1</b></span>
+              <span>Exit Direction: <b id="drawer-route-side">Front (A)</b></span>
+              <span>Distance: <b id="drawer-route-dist">24m</b></span>
+              <span>Path: <b id="drawer-route-path">[NODE-1, EXIT-1]</b></span>
+            </div>
+          </div>
+
+          <!-- Interactive Test Mode Simulation Override -->
+          <div class="section-card" id="test-simulation-card">
+            <div class="section-card-title">
+              <i class="fa-solid fa-flask-vial"></i>
+              <span>TEST SIMULATION OVERRIDE</span>
+              <span class="status-tag active" id="drawer-sim-badge">TEST MODE</span>
+            </div>
+
+            <div class="test-controls-body">
+              <!-- Hazard Selector -->
+              <div class="control-group">
+                <label class="control-label"><i class="fa-solid fa-triangle-exclamation"></i> Hazard Status</label>
+                <div class="btn-group-segmented">
+                  <button type="button" class="btn-seg safe" id="btn-hz-safe" onclick="setTestNodeHazard('SAFE')">
+                    <i class="fa-solid fa-shield-heart"></i> SAFE
+                  </button>
+                  <button type="button" class="btn-seg warning" id="btn-hz-warning" onclick="setTestNodeHazard('WARNING')">
+                    <i class="fa-solid fa-triangle-exclamation"></i> WARN
+                  </button>
+                  <button type="button" class="btn-seg danger" id="btn-hz-critical" onclick="setTestNodeHazard('CRITICAL')">
+                    <i class="fa-solid fa-fire"></i> FIRE
+                  </button>
+                </div>
+              </div>
+
+              <!-- Congestion Selector -->
+              <div class="control-group">
+                <label class="control-label"><i class="fa-solid fa-users"></i> Crowd / Congestion</label>
+                <div class="btn-group-segmented">
+                  <button type="button" class="btn-seg" id="btn-cg-low" onclick="setTestNodeCongestion('LOW')">
+                    <i class="fa-solid fa-user"></i> CLEAR
+                  </button>
+                  <button type="button" class="btn-seg warning" id="btn-cg-medium" onclick="setTestNodeCongestion('MEDIUM')">
+                    <i class="fa-solid fa-users"></i> MED
+                  </button>
+                  <button type="button" class="btn-seg danger" id="btn-cg-high" onclick="setTestNodeCongestion('HIGH')">
+                    <i class="fa-solid fa-people-group"></i> HIGH
+                  </button>
+                </div>
+              </div>
+
+              <!-- Corridor Block Toggle -->
+              <div class="control-group-inline">
+                <label class="control-label"><i class="fa-solid fa-ban"></i> Block Corridor (STOP)</label>
+                <label class="switch-toggle">
+                  <input type="checkbox" id="test-toggle-blocked" onchange="toggleTestNodeBlocked(this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <!-- Sliders -->
+              <div class="control-group">
+                <div class="slider-header">
+                  <span>Occupancy:</span>
+                  <span class="slider-val" id="test-disp-people">0 ppl</span>
+                </div>
+                <input type="range" class="control-slider" id="test-slider-people" min="0" max="25" value="0" oninput="onTestSliderInput('people', this.value)" onchange="onTestSliderChange()">
+              </div>
+
+              <div class="control-group">
+                <div class="slider-header">
+                  <span>Temperature:</span>
+                  <span class="slider-val" id="test-disp-temp">24.0 °C</span>
+                </div>
+                <input type="range" class="control-slider" id="test-slider-temp" min="15" max="85" value="24" oninput="onTestSliderInput('temp', this.value)" onchange="onTestSliderChange()">
+              </div>
+
+              <div class="control-group">
+                <div class="slider-header">
+                  <span>Smoke / Gas:</span>
+                  <span class="slider-val" id="test-disp-smoke">10 PPM</span>
+                </div>
+                <input type="range" class="control-slider" id="test-slider-smoke" min="0" max="300" value="10" oninput="onTestSliderInput('smoke', this.value)" onchange="onTestSliderChange()">
+              </div>
+
+              <!-- Manual POST Button & Status Feedback -->
+              <div class="control-actions">
+                <button type="button" class="btn-primary-glow" id="btn-submit-telemetry" onclick="submitTestNodeTelemetry()">
+                  <i class="fa-solid fa-paper-plane"></i> POST to /node/{id}/report
+                </button>
+                <div class="post-feedback" id="test-post-feedback"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual 8x8 LED Matrix Display Simulation -->
+          <div class="section-card">
+            <div class="section-card-title">
+              <i class="fa-solid fa-tv"></i>
+              <span>DUAL 8x8 MATRIX SIGNS (FC16 HW)</span>
+              <span class="status-tag active" id="drawer-matrix-sync">SYNCED</span>
+            </div>
+            <div class="dual-matrix-container">
+              <div class="matrix-unit">
+                <div class="matrix-unit-header">
+                  <span class="unit-label">DISPLAY A</span>
+                  <span class="unit-state" id="drawer-display-a-text">FORWARD</span>
+                </div>
+                <div class="matrix-grid-housing">
+                  <canvas id="matrix-a-canvas" width="96" height="96"></canvas>
+                </div>
+              </div>
+
+              <div class="matrix-unit">
+                <div class="matrix-unit-header">
+                  <span class="unit-label">DISPLAY B</span>
+                  <span class="unit-state" id="drawer-display-b-text">STOP</span>
+                </div>
+                <div class="matrix-grid-housing">
+                  <canvas id="matrix-b-canvas" width="96" height="96"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Camera Stream -->
+          <div class="section-card">
+            <div class="section-card-title">
+              <i class="fa-solid fa-camera"></i>
+              <span>CAMERA & VISION METRICS</span>
+            </div>
+            
+            <div class="camera-ip-editor" style="display: flex; gap: 8px; margin-bottom: 10px; padding: 0 10px;">
+              <input type="text" id="cam-ip-input" value="http://192.168.1.50:81/stream" class="control-slider" style="flex-grow: 1; padding: 4px; background: #222; color: #fff; border: 1px solid #444; border-radius: 4px;" placeholder="ESP32-CAM Stream URL">
+              <button onclick="updateCameraIp()" class="btn-primary-glow" style="padding: 4px 12px; font-size: 0.9em; border: none; cursor: pointer; border-radius: 4px;">Update</button>
+            </div>
+
+            <div class="camera-stream-wrapper" style="position: relative; height: auto; border: none; background: transparent;">
+              <div class="video-box" style="width: 100%; border: 2px solid #333; border-radius: 8px; overflow: hidden; background-color: #000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); aspect-ratio: 4/3;">
+                <img id="live-cam-stream" src="http://192.168.1.50:81/stream" alt="Live ESP32 Stream" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; document.getElementById('cam-placeholder-fallback').style.display='flex';" onload="this.style.display='block'; document.getElementById('cam-placeholder-fallback').style.display='none';">
+                
+                <div id="cam-placeholder-fallback" style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column; color: #666; background: var(--bg-surface-subtle);">
+                  <i class="fa-solid fa-video-slash" style="font-size: 2em; margin-bottom: 8px;"></i>
+                  <span>Stream Offline or Invalid URL</span>
+                </div>
+              </div>
+
+              <div class="stream-stats-overlay" style="margin-top: 10px; border-radius: 6px;">
+                <div>PEOPLE: <span class="val" id="cam-people-val">0</span></div>
+                <div>AREA RATIO: <span class="val" id="cam-area-val">0.0%</span></div>
+                <div>FLOW: <span class="val" id="cam-flow-val">0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sensors -->
+          <div class="section-card">
+            <div class="section-card-title">
+              <i class="fa-solid fa-gauge-high"></i>
+              <span>DISASTER & SENSOR TELEMETRY</span>
+            </div>
+            <div class="sensor-grid">
+              <div class="sensor-box" id="sensor-temp-box">
+                <div class="sensor-top">
+                  <i class="fa-solid fa-temperature-three-quarters"></i>
+                  <span>Temperature</span>
+                </div>
+                <div class="sensor-val"><span id="sensor-temp">--</span> <small>°C</small></div>
+                <div class="sensor-bar"><div class="bar-fill" id="bar-temp" style="width: 25%;"></div></div>
+              </div>
+
+              <div class="sensor-box" id="sensor-smoke-box">
+                <div class="sensor-top">
+                  <i class="fa-solid fa-smog"></i>
+                  <span>Smoke / Gas</span>
+                </div>
+                <div class="sensor-val"><span id="sensor-smoke">--</span> <small>PPM</small></div>
+                <div class="sensor-bar"><div class="bar-fill" id="bar-smoke" style="width: 10%;"></div></div>
+              </div>
+
+              <div class="sensor-box" id="sensor-flame-box">
+                <div class="sensor-top">
+                  <i class="fa-solid fa-fire"></i>
+                  <span>Hazard Flag</span>
+                </div>
+                <div class="sensor-val" id="sensor-flame-val">SAFE</div>
+                <div class="sensor-sub" id="sensor-flame-sub">Optical Sensor</div>
+              </div>
+
+              <div class="sensor-box" id="sensor-congestion-box">
+                <div class="sensor-top">
+                  <i class="fa-solid fa-user-group"></i>
+                  <span>Passage State</span>
+                </div>
+                <div class="sensor-val" id="sensor-density-val">OPEN</div>
+                <div class="sensor-sub" id="sensor-blocked-sub">Not Blocked</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="specs-footer">
+            <div><i class="fa-solid fa-microchip"></i> Node: <span id="node-type-label">ESP32 Dynamic Sign Node</span></div>
+            <div><i class="fa-solid fa-clock-rotate-left"></i> Source: <span id="node-source-label">Live /state</span></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       TAB 2: LAYOUT & GRAPH EDITOR VIEW
+       ========================================================================= -->
+  <div class="tab-view" id="view-editor">
+    <div class="editor-main-container">
+      
+      <!-- Left: Interactive Visual Canvas Area -->
+      <div class="editor-canvas-panel">
+                <!-- Editor Streamlined Header Bar (No tools bar) -->
+        <div class="editor-toolbar">
+          <div class="toolbar-left">
+            <span class="editor-mode-pill live" id="editor-mode-badge">LIVE (nodes)</span>
+            <span class="editor-hint-badge" id="editor-hint-text">
+              <i class="fa-solid fa-mouse"></i> Right-click canvas, node, or link for options • Drag empty space to pan • Scroll to zoom
+            </span>
+          </div>
+
+          <div class="toolbar-actions-group">
+            <button class="btn-editor-action" onclick="LayoutEditor.resetView()">
+              <i class="fa-solid fa-magnifying-glass-arrows-rotate"></i> Reset View
+            </button>
+            <button class="btn-editor-save" onclick="LayoutEditor.saveGraphToDisk()">
+              <i class="fa-solid fa-floppy-disk"></i> SAVE TO DISK
+            </button>
+          </div>
+        </div>
+
+        <!-- Editor Canvas -->
+        <div class="editor-canvas-wrapper" id="editor-canvas-container">
+          <canvas id="editor-canvas"></canvas>
+
+          <!-- Custom Context Menu -->
+          <div id="editor-context-menu" class="editor-context-menu" style="display: none;">
+            <div class="ctx-header" id="ctx-menu-title">OPTIONS</div>
+            
+            <div class="ctx-add-group" id="ctx-add-group">
+              <div class="ctx-group-label"><i class="fa-solid fa-plus"></i> Add</div>
+              <div class="ctx-sub-items">
+                <button class="ctx-item ctx-add-junction" id="ctx-btn-add-junction" onclick="LayoutEditor.handleCtxAction('add-junction')">
+                  <i class="fa-solid fa-code-fork"></i> Junction
+                </button>
+                <button class="ctx-item ctx-add-node" id="ctx-btn-add-node" onclick="LayoutEditor.handleCtxAction('add-node')">
+                  <i class="fa-solid fa-circle-dot"></i> Node
+                </button>
+                <button class="ctx-item ctx-add-exit" id="ctx-btn-add-exit" onclick="LayoutEditor.handleCtxAction('add-exit')">
+                  <i class="fa-solid fa-door-open"></i> Exit
+                </button>
+              </div>
+            </div>
+
+            <div class="ctx-divider"></div>
+            <button class="ctx-item ctx-edit-id" id="ctx-btn-edit-id" onclick="LayoutEditor.handleCtxAction('edit-id')">
+              <i class="fa-solid fa-pen-to-square"></i> Edit Node ID
+            </button>
+            <button class="ctx-item ctx-rotate-node" id="ctx-btn-rotate" onclick="LayoutEditor.handleCtxAction('rotate')">
+              <i class="fa-solid fa-rotate"></i> Rotate
+            </button>
+            <div class="ctx-divider"></div>
+            <button class="ctx-item ctx-delete" id="ctx-btn-delete" onclick="LayoutEditor.handleCtxAction('delete')">
+              <i class="fa-solid fa-trash-can"></i> Delete
+            </button>
+          </div>
+
+          <!-- Empty canvas overlay when no nodes on canvas -->
+          <div class="empty-state-overlay" id="editor-empty-overlay" style="display: none;">
+            <i class="fa-solid fa-draw-polygon"></i>
+            <h3>Empty Layout Canvas</h3>
+            <p>No nodes are placed on the canvas for this matrix. Add nodes from the <strong>Unconfigured Nodes</strong> panel on the right or click below.</p>
+            <div class="empty-btn-row">
+              <button class="btn-editor-save" onclick="LayoutEditor.placeAllUnconfigured()">
+                <i class="fa-solid fa-layer-group"></i> Place All Unconfigured Nodes
+              </button>
+              <button class="btn-editor-tool" onclick="LayoutEditor.promptAddNode(0, 0)">
+                <i class="fa-solid fa-plus"></i> Add New Node ID
+              </button>
+            </div>
+          </div>
+
+          <div class="editor-instruction-pill">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span id="editor-hint-text">Click a node to start a connection line, then click target node to join.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Unconfigured Nodes & 2D Adjacency Matrix Sidebar -->
+      <aside class="editor-matrix-sidebar">
+        
+        <!-- SECTION 1: UNCONFIGURED NODES IN DICT -->
+        <div class="unconfigured-section">
+          <div class="unconfigured-header">
+            <div class="unconfigured-title">
+              <i class="fa-solid fa-box-archive"></i>
+              <span>UNCONFIGURED NODES</span>
+              <span class="unconf-count-pill" id="unconf-count-badge">0</span>
+            </div>
+            <button class="btn-unconf-all" id="btn-place-all" onclick="LayoutEditor.placeAllUnconfigured()">
+              <i class="fa-solid fa-plus"></i> Place All
+            </button>
+          </div>
+          <div class="unconfigured-list scrollable" id="unconfigured-nodes-list">
+            <!-- Populated dynamically by LayoutEditor.renderUnconfiguredList() -->
+          </div>
+        </div>
+
+        <!-- SECTION 2: 2D ADJACENCY MATRIX -->
+        <div class="matrix-section">
+          <div class="matrix-panel-header">
+            <div class="matrix-title-group">
+              <div class="matrix-main-title"><i class="fa-solid fa-table-cells"></i> 2D ADJACENCY MATRIX</div>
+              <div class="matrix-sub-title" id="matrix-stats-summary">Weights = Distance (m), -1 = Inaccessible</div>
+            </div>
+          </div>
+
+          <div class="matrix-panel-body scrollable">
+            <div class="matrix-legend-row">
+              <span class="mat-badge green">Distance (m)</span> Link
+              <span class="mat-badge dim">-1</span> Inaccessible
+              <span class="mat-badge diag">0</span> Self
+            </div>
+
+            <!-- Dynamic 2D Matrix Table -->
+            <div class="matrix-table-container" id="matrix-table-wrapper">
+              <!-- Rendered by LayoutEditor.renderMatrixTable() -->
+            </div>
+
+            <div class="matrix-disk-info">
+              <div class="disk-title"><i class="fa-solid fa-hard-drive"></i> DISK STORAGE & DICT SYNC:</div>
+              <code>data/graph_matrix_[mode].json</code>
+              <p>On saving, Flask writes the 2D Distance Matrix to disk and synchronizes the nested dictionary with node IDs as keys.</p>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="editor-toast" id="editor-toast">Graph saved to disk!</div>
+
+  <!-- LIVE INCIDENT LOG TICKER FOOTER -->
+  <footer class="incident-footer">
+    <div class="log-label"><i class="fa-solid fa-triangle-exclamation"></i> SYSTEM LOG:</div>
+    <div class="log-ticker-content" id="log-ticker">
+      <span class="log-entry info">[SYSTEM] Dynamic Exit Router initialized. Polling /state...</span>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="/js/matrix_sim.js"></script>
+  <script src="/js/graph_view.js"></script>
+  <script src="/js/editor_view.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
